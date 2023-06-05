@@ -1,0 +1,40 @@
+#allMembers .wrap {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0 0 0;
+    position: relative;
+}
+#allMembers select {
+    width: 70%;
+    height: 40px;
+    outline: none;
+    border: 0;
+    border-bottom: 2px solid rgb(218,32,49);
+    font-size: 1em;
+    padding: 0 0 0 10px;
+    cursor: pointer;
+}
+#allMembers .matchList {
+    position: absolute;
+    top: 50px;
+    width: 70%;
+    padding: 0 0 100px 0;
+}
+#allMembers .matchList ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#allMembers .matchList ul a {
+    width: 100%;
+    color: #000;
+    margin: 5px 0;
+    border: 1px solid silver;
+}
+#allMembers .matchList ul li {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}

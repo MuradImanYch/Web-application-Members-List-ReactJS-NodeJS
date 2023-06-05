@@ -1,0 +1,46 @@
+#search .wrap {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0 0 0;
+    position: relative;
+}
+#search input {
+    width: 70%;
+    height: 40px;
+    outline: none;
+    border: 0;
+    border-bottom: 2px solid rgb(218,32,49);
+    font-size: 1em;
+    padding: 0 0 0 10px;
+}
+#search img {
+    position: absolute;
+    right: 18%;
+    cursor: pointer;
+    width: 25px;
+    bottom: 10px;
+}
+#search .matchList {
+    position: absolute;
+    top: 50px;
+    width: 70%;
+    padding: 0 0 100px 0;
+}
+#search .matchList ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#search .matchList ul a {
+    width: 100%;
+    color: #000;
+    margin: 5px 0;
+    border: 1px solid silver;
+}
+#search .matchList ul li {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
