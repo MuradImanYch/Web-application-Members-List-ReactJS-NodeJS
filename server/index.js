@@ -11,6 +11,7 @@ const userDataRoutes = require('./routes/user-data');
 const getUserDataRoutes = require('./routes/get-user-data');
 const setRoleRoutes = require('./routes/setRole');
 const forgotPswRoutes = require('./routes/forgot-psw');
+const getDepartmentsRoutes = require('./routes/get-departments');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use('/user-data', userDataRoutes);
 app.use('/get-user-data', getUserDataRoutes);
 app.use('/set-role', setRoleRoutes);
 app.use('/forgot-psw', forgotPswRoutes);
+app.use('/departments', getDepartmentsRoutes);
 
 const storage = multer.diskStorage({ // multer handler
     destination: (req, file, cb) => {

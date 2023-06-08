@@ -90,10 +90,12 @@ const Profile = () => {
 
     return (
         <div id='profile'>
-            <div className="img">
-                <img src={nImg ? nImg : img} alt="ava" />
+            <div className="imgFile">
+                <div className="img">
+                    <img src={nImg ? nImg : img} alt="ava" />
+                </div>
+                {edit && <input type="file" onChange={selectImg} />}
             </div>
-            {edit && <input type="file" onChange={selectImg} />}
             <div>
                 <span className='label'>Имя пользователя: </span>
                 <input type="text" value={username} disabled style={{textDecoration: 'underline', textUnderlineOffset: '3px'}} />
@@ -108,10 +110,10 @@ const Profile = () => {
                 <span className='label'>Отчество: </span>{!edit ? <input disabled type="text" value={fName && fName} /> : <input onChange={(e) => {setNFName(e.target.value)}} className='edit' type="text" value={nFName && nFName} />}
             </div>
             <div>
-                <span className='label'>Должность: </span>{!edit ? <input disabled type="text" value={jobTitle && jobTitle} /> : <input onChange={(e) => {setNJobTitle(e.target.value)}} className='edit' type="text" value={nJobTitle && nJobTitle} />}
+                <span className='label'>Отдел: </span>{!edit ? <input disabled type="text" value={department && department} /> : <input onChange={(e) => {setNDepartment(e.target.value)}} className='edit' type="text" value={nDepartment && nDepartment} />}
             </div>
             <div>
-                <span className='label'>Отдел: </span>{!edit ? <input disabled type="text" value={department && department} /> : <input onChange={(e) => {setNDepartment(e.target.value)}} className='edit' type="text" value={nDepartment && nDepartment} />}
+                <span className='label'>Должность: </span>{!edit ? <input disabled type="text" value={jobTitle && jobTitle} /> : <input onChange={(e) => {setNJobTitle(e.target.value)}} className='edit' type="text" value={nJobTitle && nJobTitle} />}
             </div>
             <div>
                 <span className='label'>Рабочий номер тел.: </span>{!edit ? <input disabled type="number" value={wPhone && wPhone} /> : <input onChange={(e) => {setNWPhone(e.target.value)}} className='edit' type="number" value={nWPhone && nWPhone} />}

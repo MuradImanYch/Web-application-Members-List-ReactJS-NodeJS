@@ -19,6 +19,8 @@ const Auth = () => {
     const[wPhone, setWPhone] = useState();
     const[bDate, setBDate] = useState();
     const[token, setToken] = useState();
+    const[departments, setDepartments] = useState();
+    const[jobTitles, setJobTitles] = useState();
 
     const navigate = useNavigate();
 
@@ -28,6 +30,24 @@ const Auth = () => {
             navigate('/search');
         }
     }, [token]);
+
+    useEffect(() => {
+        axios.get('/departments/departments')
+        .then(response => {
+            setDepartments(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+        axios.get('/departments/job-titles')
+        .then(response => {
+            setJobTitles(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }, []);
 
     const showLog = () => {
         $('.login').hide();
@@ -135,13 +155,27 @@ const Auth = () => {
                     <div><input required type="text" placeholder='Имя*' onChange={(e) => {setName(e.target.value)}} /></div>
                     <div><input required type="text" placeholder='Фамилия*' onChange={(e) => {setLName(e.target.value)}} /></div>
                     <div><input required type="text" placeholder='Отчество*' onChange={(e) => {setFName(e.target.value)}} /></div>
-                    <div><input required type="text" placeholder='Должность*' onChange={(e) => {setJobTitle(e.target.value)}} /></div>
-                    <div><input required type="text" placeholder='Отдел*' onChange={(e) => {setDepartment(e.target.value)}} /></div>
+                    <div>
+                        <select name="" id="" defaultValue={''} onChange={(e) => {setDepartment(e.target.value)}}>
+                            <option disabled value="">Выберите отдел</option>
+                            {departments && departments.map(e => {
+                                return <option key={e.id} value={e.department}>{e.department}</option>
+                            })}
+                        </select>
+                    </div>
+                    <div>
+                        <select name="" id="" defaultValue={''} onChange={(e) => {setJobTitle(e.target.value)}}>
+                            <option disabled value="">Выберите должность</option>
+                            {jobTitles && jobTitles.map(e => {
+                                return <option key={e.id} value={e.jobTitle}>{e.jobTitle}</option>
+                            })}
+                        </select>
+                    </div>
                     <div><input required type="email" placeholder='Почта*' onChange={(e) => {setEmail(e.target.value)}} /></div>
                     <div><input required type="number" placeholder='Рабочий телефон*' onChange={(e) => {setWPhone(e.target.value)}} /></div>
                     <div><input type="number" placeholder='Мобильный телефон' onChange={(e) => {setPhone(e.target.value)}} /></div>
                     <div><input type="date" placeholder='Дата рождения: ДД.ММ.ГГ' onChange={(e) => {setBDate(e.target.value)}} /></div>
-                    <button onClick={registration}>Зарегистрироватся</button>
+                    <button onClick={registration}>Зарегистрироваться</button>
                     <span onClick={showReg}>вход</span>
                 </form>
             </div>

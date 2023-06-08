@@ -1,15 +1,19 @@
 #profile .img {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     margin: 20px 0;
     border: 2px solid rgb(218,32,49);
     overflow: hidden;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
-#profile input {
+#profile .imgFile {
+    position: absolute;
+    left: 45%;
+    top: 30%;
+}
+#profile input, #profile select {
     margin: 10px 0;
     height: 35px;
     width: 250px;
@@ -20,6 +24,9 @@
     border-radius: 10px;
     color: #000;
     background: transparent;
+}
+#profile select {
+    cursor: pointer;
 }
 #profile input[type="file"] {
     margin: 0 0 30px 0;
