@@ -10,6 +10,9 @@ const UserData = () => {
     const[isAdmin, setIsAdmin] = useState();
     const[edit, setEdit] = useState(false);
 
+    const[departments, setDepartments] = useState();
+    const[jobTitles, setJobTitles] = useState();
+
     const[nName, setNName] = useState();
     const[nLName, setNLName] = useState();
     const[nFName, setNFName] = useState();
@@ -42,6 +45,24 @@ const UserData = () => {
             console.log(err);
         });
     }, [id]);
+
+    useEffect(() => {
+        axios.get('/departments/departments')
+        .then(response => {
+            setDepartments(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+        axios.get('/departments/job-titles')
+        .then(response => {
+            setJobTitles(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }, []);
 
     const editFunc = () => {
         setEdit(true)
@@ -111,10 +132,12 @@ const UserData = () => {
 
     return (
         <div id='user-data'>
-            <div className="img">
-                <img src={nImg ? nImg : selected && selected[0].img} alt="ava" />
+            <div className="imgFile">
+                <div className="img">
+                    <img src={nImg ? nImg : selected && selected[0].img} alt="ava" />
+                </div>
+                {edit && <input type="file" onChange={selectImg} />}
             </div>
-            {edit && <input type="file" onChange={selectImg} />}
             <div>
                 <span className='label'>Имя пользователя: </span>
                 <input type="text" value={selected && selected[0].username} disabled style={{textDecoration: 'underline', textUnderlineOffset: '3px'}} />
@@ -132,12 +155,18 @@ const UserData = () => {
                 {!edit ? <input disabled type="text" value={nFName ? nFName : selected && selected[0].fName} /> : <input className='edit' type="text" onChange={(e) => {setNFName(e.target.value)}} />}
             </div>
             <div>
-                <span className='label'>Должность: </span>
-                {!edit ? <input disabled type="text" value={nJobTitle ? nJobTitle : selected && selected[0].jobTitle} /> : <input className='edit' type="text" onChange={(e) => {setNJobTitle(e.target.value)}} />}
+                <span className='label'>Отдел: </span>{!edit ? <input disabled type="text" value={selected && selected[0].department} /> : <select value={nDepartment ? nDepartment : selected && selected[0].department} className='edit' onChange={(e) => {setNDepartment(e.target.value)}}>
+                    {departments && departments.map(e => {
+                                return <option key={e.id} value={e.department}>{e.department}</option>
+                            })}
+                    </select>}
             </div>
             <div>
-                <span className='label'>Отдел: </span>
-                {!edit ? <input disabled type="text" value={nDepartment ? nDepartment : selected && selected[0].department} /> : <input className='edit' type="text" onChange={(e) => {setNDepartment(e.target.value)}} />}
+                <span className='label'>Должность: </span>{!edit ? <input disabled type="text" value={selected && selected[0].jobTitle} /> : <select value={nJobTitle ? nJobTitle : selected && selected[0].jobTitle} className='edit' onChange={(e) => {setNJobTitle(e.target.value)}}>
+                    {jobTitles && jobTitles.map(e => {
+                                return <option key={e.id} value={e.jobTitle}>{e.jobTitle}</option>
+                            })}
+                    </select>}
             </div>
             <div>
                 <span className='label'>Рабочий номер тел.: </span>

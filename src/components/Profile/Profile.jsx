@@ -17,6 +17,9 @@ const Profile = () => {
     const[edit, setEdit] = useState(false);
     const[username, setUsername] = useState();
 
+    const[departments, setDepartments] = useState();
+    const[jobTitles, setJobTitles] = useState();
+
     const[nName, setNName] = useState();
     const[nLName, setNLName] = useState();
     const[nFName, setNFName] = useState();
@@ -49,6 +52,24 @@ const Profile = () => {
             console.log(err);
         });
     }, [edit]);
+
+    useEffect(() => {
+        axios.get('/departments/departments')
+        .then(response => {
+            setDepartments(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+        axios.get('/departments/job-titles')
+        .then(response => {
+            setJobTitles(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }, []);
 
     const editFunc = () => {
         setEdit(true)
@@ -110,10 +131,18 @@ const Profile = () => {
                 <span className='label'>Отчество: </span>{!edit ? <input disabled type="text" value={fName && fName} /> : <input onChange={(e) => {setNFName(e.target.value)}} className='edit' type="text" value={nFName && nFName} />}
             </div>
             <div>
-                <span className='label'>Отдел: </span>{!edit ? <input disabled type="text" value={department && department} /> : <input onChange={(e) => {setNDepartment(e.target.value)}} className='edit' type="text" value={nDepartment && nDepartment} />}
+                <span className='label'>Отдел: </span>{!edit ? <input disabled type="text" value={department && department} /> : <select value={nDepartment ? nDepartment : department && department} className='edit' onChange={(e) => {setNDepartment(e.target.value)}}>
+                    {departments && departments.map(e => {
+                                return <option key={e.id} value={e.department}>{e.department}</option>
+                            })}
+                    </select>}
             </div>
             <div>
-                <span className='label'>Должность: </span>{!edit ? <input disabled type="text" value={jobTitle && jobTitle} /> : <input onChange={(e) => {setNJobTitle(e.target.value)}} className='edit' type="text" value={nJobTitle && nJobTitle} />}
+                <span className='label'>Должность: </span>{!edit ? <input disabled type="text" value={jobTitle && jobTitle} /> : <select value={nJobTitle ? nJobTitle : jobTitle && jobTitle} className='edit' onChange={(e) => {setNJobTitle(e.target.value)}}>
+                    {jobTitles && jobTitles.map(e => {
+                                return <option key={e.id} value={e.jobTitle}>{e.jobTitle}</option>
+                            })}
+                    </select>}
             </div>
             <div>
                 <span className='label'>Рабочий номер тел.: </span>{!edit ? <input disabled type="number" value={wPhone && wPhone} /> : <input onChange={(e) => {setNWPhone(e.target.value)}} className='edit' type="number" value={nWPhone && nWPhone} />}
